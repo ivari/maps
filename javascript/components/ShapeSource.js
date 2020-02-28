@@ -63,6 +63,13 @@ class ShapeSource extends AbstractSource {
     clusterMaxZoomLevel: PropTypes.number,
 
     /**
+     * Specifies custom properties on the generated clusters if clustering is enabled,
+     * aggregating values from clustered points.
+     * Has the form `{ 'property_name': [operator, map_expression] }`.
+     */
+    clusterProperties: PropTypes.object,
+
+    /**
      * Specifies the maximum zoom level at which to create vector tiles.
      * A greater value produces greater detail at high zoom levels.
      * The default value is 18.

@@ -16,6 +16,7 @@ import com.mapbox.mapboxsdk.utils.BitmapUtils;
 import com.mapbox.rctmgl.R;
 import com.mapbox.rctmgl.components.mapview.RCTMGLMapView;
 import com.mapbox.rctmgl.events.FeatureClickEvent;
+import com.mapbox.rctmgl.utils.ClusterPropertyEntry;
 import com.mapbox.rctmgl.utils.DownloadMapImageTask;
 import com.mapbox.rctmgl.utils.ImageEntry;
 
@@ -38,6 +39,7 @@ public class RCTMGLShapeSource extends RCTSource<GeoJsonSource> {
     private Boolean mCluster;
     private Integer mClusterRadius;
     private Integer mClusterMaxZoom;
+    private List<Map.Entry<String, ClusterPropertyEntry>> mClusterProperties;
 
     private Integer mMaxZoom;
     private Integer mBuffer;
@@ -132,6 +134,10 @@ public class RCTMGLShapeSource extends RCTSource<GeoJsonSource> {
         mClusterMaxZoom = clusterMaxZoom;
     }
 
+    public void setClusterProperties(List<Map.Entry<String, ClusterPropertyEntry>> clusterProperties) {
+        mClusterProperties = clusterProperties;
+    }
+
     public void setMaxZoom(int maxZoom) {
         mMaxZoom = maxZoom;
     }
@@ -169,6 +175,14 @@ public class RCTMGLShapeSource extends RCTSource<GeoJsonSource> {
 
         if (mClusterMaxZoom != null) {
             options.withClusterMaxZoom(mClusterMaxZoom);
+        }
+
+        if (mClusterProperties != null) {
+            for (Map.Entry<String, ClusterPropertyEntry> entry : mClusterProperties) {
+                ClusterPropertyEntry property = entry.getValue();
+
+                options.withClusterProperty(entry.getKey(), property.operator, property.mapping);
+            }
         }
 
         if (mMaxZoom != null) {

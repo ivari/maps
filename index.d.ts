@@ -672,6 +672,7 @@ export interface ShapeSourceProps extends ViewProps {
   cluster?: boolean;
   clusterRadius?: number;
   clusterMaxZoomLevel?: number;
+  clusterProperties?: object;
   maxZoomLevel?: number;
   buffer?: number;
   tolerance?: number;
